@@ -1,14 +1,52 @@
+from Instrucciones.Break import Break
 from Abstract.Instruccion import Instruccion
 from TS.Excepcion         import Excepcion
 
 class Switch(Instruccion):
-    def __init__(self, condicion, listaCase,default, fila, columna):
-        self.condicion = condicion
+    def __init__(self, condicionSwitch, listaCase,default, fila, columna):
+        self.condicionSwitch = condicionSwitch
         self.listaCase = listaCase
         self.default = default
         self.fila = fila
         self.columna = columna
 
+    def interpretar(self, tree, table):
+        condicionSwitch = self.condicionSwitch.interpretar(tree,table)
+        if isinstance(condicionSwitch,Excepcion): return condicionSwitch
+
+        if self.listaCase != None:
+            for instruccion in self.listaCase:
+                condicionCase = instruccion.condicion.interpretar(tree,table)
+
+                if condicionCase == condicionSwitch:
+                    for instruccionCase in instruccion.instrucciones:
+                        result = instruccionCase.interpretar(tree,table)
+                        if isinstance(result,Excepcion):
+                            tree.getExcepciones().append(result)
+                            tree.updateConsola(result.toString())
+                        
+                        if isinstance(result,Break): return None
+
+        if self.default != None:
+            for instruccionesDefault in self.default:
+                result = instruccionesDefault.interpretar(tree,table)
+                if isinstance(result,Excepcion):
+                    tree.getExcepciones().append(result)
+                    tree.updateConsola(result.toString())
+                    return None
+
+
+
+
+
+
+
+
+
+
+
+
+"""
     def interpretar(self, tree, table):
         if self.listaCase == None:
             if self.default != None:
@@ -44,3 +82,4 @@ class Switch(Instruccion):
             if isinstance(value, Excepcion) :
                 tree.getExcepciones().append(value)
                 tree.updateConsola(value.toString())
+"""

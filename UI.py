@@ -53,6 +53,7 @@ def actualizarArchivoLblGuardar():
 #Path del archivo en memoria
 archivo=""
 
+
 #Abrir archivo
 def abrir():       
     global archivo
@@ -68,7 +69,7 @@ def abrir():
 
 
 #Nuevo archivo
-def nuevo():   
+def nuevo(e = None):   
     global archivo
     entradaTxt.delete(1.0, END)
     archivo = ""

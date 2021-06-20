@@ -315,56 +315,44 @@ def p_if3(t) :
     t[0] = If(t[3], t[6], None, t[9], t.lineno(1), find_column(input, t.slice[1]))
 
 #///////////////////////////////////////SWITCH//////////////////////////////////////////////////
-def p_switch_instr(t):
-    '''
-    switch_instr : RSWITCH PARA expresion PARC LLAVEA lista_case LLAVEC
-    '''
-    t[0] = Switch(t[3],t[6],None,t.lineno(5), find_column(input, t.slice[5]))
-def p_switch_instr2(t):
-    '''
-    switch_instr : RSWITCH PARA expresion PARC LLAVEA lista_case default LLAVEC
-    '''
-    t[0] = Switch(t[3], t[6], t[7], t.lineno(5), find_column(input, t.slice[5]))
-def p_switch_instr3(t):
-    '''
-    switch_instr : RSWITCH PARA expresion PARC LLAVEA default LLAVEC
-    '''
-    t[0] = Switch(t[3], None, t[6], t.lineno(5), find_column(input, t.slice[5]))
+def p_switch_instr(t):    
+    'switch_instr : RSWITCH PARA expresion PARC LLAVEA lista_case RDEFAULT DOSPUNTOS instrucciones LLAVEC'
+    t[0] = Switch(t[3],t[6],t[9],t.lineno(2), find_column(input, t.slice[2]))
+
+def p_switch_instr2(t):    
+    'switch_instr : RSWITCH PARA expresion PARC LLAVEA lista_case LLAVEC'
+    t[0] = Switch(t[3],t[6],None,t.lineno(2), find_column(input, t.slice[2]))
+
+def p_switch_instr3(t):    
+    'switch_instr : RSWITCH PARA expresion PARC LLAVEA RDEFAULT DOSPUNTOS instrucciones LLAVEC'
+    t[0] = Switch(t[3],None,t[8],t.lineno(2), find_column(input, t.slice[2]))
+
 def p_switch_lista_case(t):
-    '''
-    lista_case : lista_case case
-    '''
+    'lista_case : lista_case case_instrucciones'
     if t[2] != "":
         t[1].append(t[2])
     t[0] = t[1]
-def p_switch_lista_case2(t):
-    '''
-    lista_case : case
-    '''
-    t[0] = [t[1]]
+
+def p_caseInstrucciones(t):
+    'lista_case : case_instrucciones'
+    if t[1] == "":
+        t[0] = []
+    else:
+        t[0] = [t[1]]
+
 def p_switch_case(t):
-    '''
-    case : RCASE expresion DOSPUNTOS instrucciones
-    '''
-    t[0] = Case(t[2],t[4],t.lineno(3), find_column(input, t.slice[3]))
-def p_switch_default(t):
-    '''
-    default : RDEFAULT DOSPUNTOS instrucciones
-    '''
-    t[0] = Case(t[1],t[3],t.lineno(2), find_column(input, t.slice[2]))
+    'case_instrucciones : RCASE expresion DOSPUNTOS instrucciones'
+    t[0] = Case(t[2],t[4],t.lineno(1), find_column(input, t.slice[1]))
 
 #/////////////////////////////////////// FOR //////////////////////////////////////////////////
 
 def p_for_instr_asignacion(t):
-    '''
-    for_instr : RFOR PARA asignacion_instr PUNTOCOMA expresion PUNTOCOMA asignacion2_instr PARC LLAVEA instrucciones LLAVEC
-    '''
+    
+    'for_instr : RFOR PARA asignacion_instr PUNTOCOMA expresion PUNTOCOMA asignacion2_instr PARC LLAVEA instrucciones LLAVEC'
     t[0] = For(t[3],t[5],t[7],t[10],t.lineno(8), find_column(input, t.slice[8]))
     
 def p_for_instr_declaracion(t):
-    '''
-    for_instr : RFOR PARA declaracion_for PUNTOCOMA expresion PUNTOCOMA asignacion2_instr PARC LLAVEA instrucciones LLAVEC
-    '''
+    'for_instr : RFOR PARA declaracion_for PUNTOCOMA expresion PUNTOCOMA asignacion2_instr PARC LLAVEA instrucciones LLAVEC'
     t[0] = For(t[3],t[5],t[7],t[10],t.lineno(8), find_column(input, t.slice[8]))
     
 """def p_for_instr_var(t):
@@ -374,9 +362,7 @@ def p_for_instr_declaracion(t):
     t[0] = For(t[3],t[5],t[7],t[10],t.lineno(8), find_column(input, t.slice[8]))
 """
 def p_declaracion_for(t):
-    '''
-    declaracion_for :  tipo_declaracion_for ID IGUAL expresion
-    '''
+    'declaracion_for :  tipo_declaracion_for ID IGUAL expresion'
     t[0] = Declaracion(t[1], t[2], t.lineno(2), find_column(input, t.slice[2]), t[4])
     
 def p_tipo_declaracion_for(t):

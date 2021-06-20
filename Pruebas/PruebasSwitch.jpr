@@ -1,0 +1,19 @@
+main (){
+    
+    print("---------- SENTENCIA SWITCH ----------");
+    var opc = 25;
+    switch(opc){
+    case 10:
+        print("esto no debería de estar aquí");
+    case 15:
+        print("esto no debería de estar aquí");
+    case 25:
+        print("switch case funcionando correctamente");
+    default:
+        print("acción por defecto");
+    }
+    # Salida de esta sección
+    # switch case funcionando correctamente
+    # acción por defecto
+
+}

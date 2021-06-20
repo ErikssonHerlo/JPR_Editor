@@ -4,19 +4,15 @@ from TS.Excepcion         import Excepcion
 from TS.TablaSimbolos     import TablaSimbolos
 
 class Case(Instruccion):
-    def __init__(self, expresion, instrucciones, fila, columna):
-        self.expresion = expresion
+    def __init__(self, condicion, instrucciones, fila, columna):
+        self.condicion = condicion
         self.instrucciones = instrucciones
         self.fila = fila
         self.columna = columna
 
-
     def interpretar(self, tree, table):
+        condicion = self.condicion.interpretar(tree,table)
+        if isinstance(condicion,Excepcion): return condicion
 
-        nuevaTabla = TablaSimbolos(table)  # NUEVO AMBITO 
-        for instruccion in self.instrucciones:
-            result = instruccion.interpretar(tree, nuevaTabla)  # EJECUTA LA INSTRUCCION DENTRO DEL CASE
-            if isinstance(result, Excepcion):
-                tree.getExcepciones().append(result)
-                tree.updateConsola(result.toString())
-            if isinstance(result, Break): return True
+    def getInstrucciones(self):
+        return self.instrucciones

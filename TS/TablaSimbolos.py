@@ -45,3 +45,10 @@ class TablaSimbolos:
             else:
                 tablaActual = tablaActual.anterior
         return Excepcion("Semantico", "Variable No encontrada en Asignacion", simbolo.getFila(), simbolo.getColumna())
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

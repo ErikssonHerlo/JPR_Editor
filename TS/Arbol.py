@@ -58,4 +58,9 @@ class Arbol:
             tablaErrores.insert("",tkinter.END,text = i,value = [i,error.tipo, error.descripcion, error.fila, error.columna])
             i = i + 1
 
-        
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

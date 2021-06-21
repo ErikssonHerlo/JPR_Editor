@@ -7,3 +7,10 @@ class Excepcion:
     
     def toString(self):
         return self.tipo + " - " + self.descripcion + " [" + str(self.fila) + "," + str(self.columna) + "]"
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

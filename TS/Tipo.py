@@ -33,3 +33,10 @@ class OperadorLogico(Enum):
     NOT = 1
     AND = 2
     OR = 3
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

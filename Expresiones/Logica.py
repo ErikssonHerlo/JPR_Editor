@@ -47,3 +47,11 @@ class Logica(Instruccion):
         elif tipo == TIPO.BOOLEANO:
             return bool(val)
         return str(val)
+
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

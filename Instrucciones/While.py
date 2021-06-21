@@ -29,3 +29,10 @@ class While(Instruccion):
                     break
             else:
                 return Excepcion("Semantico", "Tipo de Dato no booleano en la Condicional del Ciclo (While).", self.fila, self.columna) 
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

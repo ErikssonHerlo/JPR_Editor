@@ -43,3 +43,10 @@ class If(Instruccion):
 
         else:
             return Excepcion("Semantico", "Tipo de dato no booleano en Condicional (If).", self.fila, self.columna)
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

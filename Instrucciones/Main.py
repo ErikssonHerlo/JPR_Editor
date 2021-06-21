@@ -21,3 +21,11 @@ class Main(Instruccion):
                 err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
                 tree.getExcepciones().append(err)
                 tree.updateConsola(err.toString()) 
+
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

@@ -1,4 +1,5 @@
 import re
+from typing import Text
 from TS.Excepcion import Excepcion
 
 errores = []
@@ -546,7 +547,7 @@ def parse(inp) :
 
 #INTERFAZ
 
-def interfaz(archivo):
+def interfaz(archivo, tablaErrores):
     entrada = archivo
 
     from TS.Arbol import Arbol
@@ -556,10 +557,11 @@ def interfaz(archivo):
     ast = Arbol(instrucciones)
     TSGlobal = TablaSimbolos()
     ast.setTSglobal(TSGlobal)
+    i = 0
     for error in errores:                   #CAPTURA DE ERRORES LEXICOS Y SINTACTICOS
         ast.getExcepciones().append(error)
         ast.updateConsola(error.toString())
-
+    #tablaErrores['columns']=('#', 'Tipo', 'Descripcion', 'Linea', 'Columna')
     if ast.getInstrucciones()!=None:
         for instruccion in ast.getInstrucciones():      # 1ERA PASADA (DECLARACIONES Y ASIGNACIONES)
             if isinstance(instruccion, Funcion):
@@ -598,5 +600,12 @@ def interfaz(archivo):
                 ast.getExcepciones().append(err)
                 ast.updateConsola(err.toString())
         
-
+    ast.imprimirErrores(tablaErrores)
     return ast.getConsola()
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

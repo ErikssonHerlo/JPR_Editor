@@ -1,3 +1,6 @@
+import tkinter
+
+
 class Arbol:
     def __init__(self, instrucciones ):
         self.instrucciones = instrucciones
@@ -44,3 +47,15 @@ class Arbol:
     
     def addFuncion(self, funcion):
         self.funciones.append(funcion)
+
+    
+    def imprimirErrores(self, tablaErrores):
+        for limpieza in tablaErrores.get_children():
+            tablaErrores.delete(limpieza)
+
+        i = 1
+        for error in self.excepciones:                   #CAPTURA DE ERRORES LEXICOS Y SINTACTICOS
+            tablaErrores.insert("",tkinter.END,text = i,value = [i,error.tipo, error.descripcion, error.fila, error.columna])
+            i = i + 1
+
+        

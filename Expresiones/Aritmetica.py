@@ -74,7 +74,9 @@ class Aritmetica(Instruccion):
         
         #MODULO/RESIDUO
         elif self.operador == OperadorAritmetico.MOD: 
-            if (self.OperacionIzq.tipo == TIPO.ENTERO and self.OperacionDer.tipo == TIPO.ENTERO) or (self.OperacionIzq.tipo == TIPO.ENTERO and self.OperacionDer.tipo == TIPO.DECIMAL) or (self.OperacionIzq.tipo == TIPO.DECIMAL and self.OperacionDer.tipo == TIPO.ENTERO) or (self.OperacionIzq.tipo == TIPO.DECIMAL and self.OperacionDer.tipo == TIPO.DECIMAL):
+            if(self.obtenerVal(self.OperacionDer.tipo, der) == 0):
+                return Excepcion("Semantico", "No se puede realizar una Division entre cero.", self.fila, self.columna)
+            elif(self.OperacionIzq.tipo == TIPO.ENTERO and self.OperacionDer.tipo == TIPO.ENTERO) or (self.OperacionIzq.tipo == TIPO.ENTERO and self.OperacionDer.tipo == TIPO.DECIMAL) or (self.OperacionIzq.tipo == TIPO.DECIMAL and self.OperacionDer.tipo == TIPO.ENTERO) or (self.OperacionIzq.tipo == TIPO.DECIMAL and self.OperacionDer.tipo == TIPO.DECIMAL):
                 self.tipo = TIPO.DECIMAL
                 return self.obtenerVal(self.OperacionIzq.tipo, izq) % self.obtenerVal(self.OperacionDer.tipo, der)
             return Excepcion("Semantico", "Tipo Erroneo de operacion para Modulo (%).", self.fila, self.columna)

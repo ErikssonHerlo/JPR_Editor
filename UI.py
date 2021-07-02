@@ -2,12 +2,14 @@
 # Imports
 import os
 import re
+import platform
 from tkinter import filedialog
 import tkinter as tk
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import ttk
 from grammar import interfaz as compilar
+from grammar import getVariables as listaVariables
 
 # ******************************************* METODOS ********************************************
 # Actualizar lineas
@@ -226,7 +228,18 @@ def compilarArchivo(e = None):
     contenido = compilar(entradaTexto.get(1.0, END),tablaErrores)
     consolaTexto.insert(INSERT,contenido)
     resaltarPalabras()
+    tablaSimbolosUI.delete(*tablaSimbolosUI.get_children())
+    variables = listaVariables()
+    contadorVar = 1
+    for variable in variables:
+        tablaSimbolosUI.insert(parent='', index=contadorVar, iid=contadorVar, text='', values=(contadorVar,variable.getID(),"Variable",variable.getTipo(),"Global",variable.getValor(),variable.getFila(),variable.getColumna()))
+        contadorVar+=1    
 
+def abrirReporteArbolSintactico():
+    if(platform.system() == "Linux"):
+        os.system('xdg-open ast.pdf')
+    else:
+        os.startfile('ast.pdf')
 
 # ******************************************* COMPONENTES ********************************************
 
@@ -261,8 +274,8 @@ nuevoItem1.add_command(label='Debug',command=abrir)
 menu.add_cascade(label='Herramientas', menu=nuevoItem1)
 nuevoItem2 = Menu(menu,tearoff=0)
 nuevoItem2.add_command(label='Reporte de Errores',command=compilarArchivo)
-nuevoItem2.add_command(label='Arbol Sintactico',command=abrir)
-menu.add_cascade(label='Reportes', menu=nuevoItem1)
+nuevoItem2.add_command(label='Arbol Sintactico',command=abrirReporteArbolSintactico)
+menu.add_cascade(label='Reportes', menu=nuevoItem2)
 root.config(menu=menu)
 
 #---------------------------Titulos
@@ -331,23 +344,25 @@ compilarLabel.bind("<Button>",compilarArchivo)
 
 #Tabla De Simbolos en la UI
 tablaSimbolosUI=ttk.Treeview(frameEditors,height=7)
-tablaSimbolosUI['columns']=('#', 'Identificador', 'Tipo', 'Dimension', 'Valor', 'Ambito', 'Referencias')
+tablaSimbolosUI['columns']=('#', 'Identificador', 'Tipo', 'Tipo2', 'Entorno', 'Valor', 'Linea', 'Columna')
 tablaSimbolosUI.column('#0', width=0, stretch=NO)
 tablaSimbolosUI.column('#', anchor=CENTER, width=10)
 tablaSimbolosUI.column('Identificador', anchor=CENTER, width=110)
 tablaSimbolosUI.column('Tipo', anchor=CENTER, width=80)
-tablaSimbolosUI.column('Dimension', anchor=CENTER, width=110)
+tablaSimbolosUI.column('Tipo2', anchor=CENTER, width=110)
+tablaSimbolosUI.column('Entorno', anchor=CENTER, width=80)
 tablaSimbolosUI.column('Valor', anchor=CENTER, width=80)
-tablaSimbolosUI.column('Ambito', anchor=CENTER, width=80)
-tablaSimbolosUI.column('Referencias', anchor=CENTER, width=110) 
+tablaSimbolosUI.column('Linea', anchor=CENTER, width=110)
+tablaSimbolosUI.column('Columna', anchor=CENTER, width=110)  
 tablaSimbolosUI.heading('#0', text='', anchor=CENTER)
 tablaSimbolosUI.heading('#', text='#', anchor=CENTER)
 tablaSimbolosUI.heading('Identificador', text='Identificador', anchor=CENTER)
 tablaSimbolosUI.heading('Tipo', text='Tipo', anchor=CENTER)
-tablaSimbolosUI.heading('Dimension', text='Dimension', anchor=CENTER)
+tablaSimbolosUI.heading('Tipo2', text='Tipo2', anchor=CENTER)
+tablaSimbolosUI.heading('Entorno', text='Entorno', anchor=CENTER)
 tablaSimbolosUI.heading('Valor', text='Valor', anchor=CENTER)
-tablaSimbolosUI.heading('Ambito', text='Ambito', anchor=CENTER)
-tablaSimbolosUI.heading('Referencias', text='Referencias', anchor=CENTER)
+tablaSimbolosUI.heading('Linea', text='Linea', anchor=CENTER)
+tablaSimbolosUI.heading('Columna', text='Columna', anchor=CENTER)
 tablaSimbolosUI.grid(column=0, row=6,padx=25,sticky="ew")
 
 #--------Tabla Reporte de ERRORES

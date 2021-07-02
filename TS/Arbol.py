@@ -8,6 +8,8 @@ class Arbol:
         self.excepciones = []
         self.consola = ""
         self.TSglobal = None
+        self.dot = ""
+        self.contador = 0
 
     def getInstrucciones(self):
         return self.instrucciones
@@ -58,6 +60,23 @@ class Arbol:
             tablaErrores.insert("",tkinter.END,text = i,value = [i,error.tipo, error.descripcion, error.fila, error.columna])
             i = i + 1
 
+
+    def getDot(self, raiz): ## DEVUELVE EL STRING DE LA GRAFICA EN GRAPHVIZ
+        self.dot = ""
+        self.dot += "digraph {\n"
+        self.dot += "n0[label=\"" + raiz.getValor().replace("\"", "\\\"") + "\"];\n"
+        self.contador = 1
+        self.recorrerAST("n0", raiz)
+        self.dot += "}"
+        return self.dot
+
+    def recorrerAST(self, idPadre, nodoPadre):
+        for hijo in nodoPadre.getHijos():
+            nombreHijo = "n" + str(self.contador)
+            self.dot += nombreHijo + "[label=\"" + hijo.getValor().replace("\"", "\\\"") + "\"];\n"
+            self.dot += idPadre + "->" + nombreHijo + ";\n"
+            self.contador += 1
+            self.recorrerAST(nombreHijo, hijo)  
 """
     Creditos: 
         Jose Francisco Puac - Repositorio del Curso

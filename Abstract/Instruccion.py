@@ -10,6 +10,9 @@ class Instruccion(ABC):
     def interpretar(self, tree, table):
         pass
 
+    @abstractmethod
+    def getNodo(self):
+        pass
 """
     Creditos: 
         Jose Francisco Puac - Repositorio del Curso

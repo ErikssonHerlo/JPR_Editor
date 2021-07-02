@@ -1,5 +1,6 @@
 from Instrucciones.Break import Break
 from Abstract.Instruccion import Instruccion
+from Abstract.NodoAST import NodoAST
 from TS.Excepcion         import Excepcion
 
 class Switch(Instruccion):
@@ -35,6 +36,14 @@ class Switch(Instruccion):
                     tree.updateConsola(result.toString())
                     return None
 
+    def getNodo(self):
+        nodo = NodoAST("SWITCH")
+
+        instrucciones = NodoAST("CASES")
+        for instr in self.cases:
+            instrucciones.agregarHijoNodo(instr.getNodo())
+        nodo.agregarHijoNodo(instrucciones)
+        return nodo    
 
 
 

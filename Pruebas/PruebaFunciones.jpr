@@ -1,0 +1,29 @@
+
+func HolaMundo(){
+    print("HolaMundo");
+}
+
+func HolaMundo2(string val){
+    print("HolaMundo2 " + val);
+}
+
+func Suma(int a, int b){
+    print("La suma de " + a + " + " + b + " es igual a: " + ( a + b ));
+}
+
+func Suma5(int a, int b, int c, int d, int e){
+    print("La suma de " + a + " + " + b + " + " + c + " + " + d + " + " + e + " es igual a: " + ( a + b + c + d + e ));
+}
+
+main(){
+    HolaMundo();
+
+    HolaMundo2("Compi 1 :0");
+    
+    suma(234, 32);
+    suma5(1, 2,3,4,5);
+}
+
+
+
+

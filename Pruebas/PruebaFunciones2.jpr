@@ -1,0 +1,20 @@
+func mi_metodo(){
+    var i
+    for(i=0;i<9;i++){
+    if(i==5){
+    return i
+    }
+    }
+}
+
+func sumar(int n1,int n2){
+var n3;
+n3=n1+n2
+return n3
+}
+
+main(){
+mi_metodo()
+sumar(5,6)
+}
+

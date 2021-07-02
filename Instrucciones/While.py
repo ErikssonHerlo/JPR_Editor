@@ -1,4 +1,6 @@
+from Instrucciones.Return import Return
 from Abstract.Instruccion import Instruccion
+from Abstract.NodoAST import NodoAST
 from TS.Excepcion import Excepcion
 from TS.Tipo import TIPO
 from TS.TablaSimbolos import TablaSimbolos
@@ -25,11 +27,20 @@ class While(Instruccion):
                             tree.getExcepciones().append(result)
                             tree.updateConsola(result.toString())
                         if isinstance(result, Break): return None
+                        if isinstance(result, Return): return result
                 else:
                     break
             else:
                 return Excepcion("Semantico", "Tipo de Dato no booleano en la Condicional del Ciclo (While).", self.fila, self.columna) 
 
+    def getNodo(self):
+        nodo = NodoAST("WHILE")
+
+        instrucciones = NodoAST("INSTRUCCIONES")
+        for instr in self.instrucciones:
+            instrucciones.agregarHijoNodo(instr.getNodo())
+        nodo.agregarHijoNodo(instrucciones)
+        return nodo 
 """
     Creditos: 
         Jose Francisco Puac - Repositorio del Curso

@@ -1,6 +1,7 @@
 from TS.Tipo import OperadorAritmetico
 from TS.Excepcion import Excepcion
 from Abstract.Instruccion import Instruccion
+from Abstract.NodoAST import NodoAST
 from TS.Simbolo import Simbolo
 
 class Asignacion(Instruccion):
@@ -26,6 +27,19 @@ class Asignacion(Instruccion):
         if isinstance(result, Excepcion): return result
         return None
 
+
+    def getNodo(self):
+            nodo = NodoAST("ASIGNACION")
+            nodo.agregarHijo(str(self.identificador))
+            if self.expresion!=None and self.expresion!='++' and self.expresion!='--':
+                nodo.agregarHijoNodo(self.expresion.getNodo())
+            elif self.expresion=='++':
+                nodo2 = NodoAST("INCREMENTO")
+                nodo.agregarHijoNodo(nodo2)
+            elif self.expresion=='--':
+                nodo2 = NodoAST("DECREMENTO")
+                nodo.agregarHijoNodo(nodo2)
+            return nodo
 """
     Creditos: 
         Jose Francisco Puac - Repositorio del Curso

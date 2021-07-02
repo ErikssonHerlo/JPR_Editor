@@ -1,4 +1,6 @@
+from Instrucciones.Return import Return
 from Abstract.Instruccion import Instruccion
+from Abstract.NodoAST import NodoAST
 from TS.Excepcion import Excepcion
 from TS.Tipo import TIPO
 from TS.TablaSimbolos import TablaSimbolos
@@ -27,6 +29,7 @@ class If(Instruccion):
                         tree.getExcepciones().append(result)
                         tree.updateConsola(result.toString())
                     if isinstance(result, Break): return result
+                    if isinstance(result, Return): return result
             else:               #ELSE
                 if self.instruccionesElse != None:
                     nuevaTabla = TablaSimbolos(table)       #NUEVO ENTORNO
@@ -36,13 +39,34 @@ class If(Instruccion):
                             tree.getExcepciones().append(result)
                             tree.updateConsola(result.toString()) 
                         if isinstance(result, Break): return result
+                        if isinstance(result, Return): return result
                 elif self.elseIf != None:
                     result = self.elseIf.interpretar(tree, table)
                     if isinstance(result, Excepcion): return result
                     if isinstance(result, Break): return result
+                    if isinstance(result, Return): return result
 
         else:
             return Excepcion("Semantico", "Tipo de dato no booleano en Condicional (If).", self.fila, self.columna)
+
+
+    def getNodo(self):
+        nodo = NodoAST("IF")
+
+        instruccionesIf = NodoAST("INSTRUCCIONES IF")
+        for instr in self.instruccionesIf:
+            instruccionesIf.agregarHijoNodo(instr.getNodo())
+        nodo.agregarHijoNodo(instruccionesIf)
+
+        if self.instruccionesElse != None:
+            instruccionesElse = NodoAST("INSTRUCCIONES ELSE")
+            for instr in self.instruccionesElse:
+                instruccionesElse.agregarHijoNodo(instr.getNodo())
+            nodo.agregarHijoNodo(instruccionesElse) 
+        elif self.elseIf != None:
+            nodo.agregarHijoNodo(self.elseIf.getNodo())
+
+        return nodo  
 
 """
     Creditos: 

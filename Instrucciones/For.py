@@ -1,6 +1,7 @@
 from Instrucciones.Declaracion import Declaracion
 from Instrucciones.Asignacion import Asignacion
 from Abstract.Instruccion import Instruccion
+from Abstract.NodoAST import NodoAST
 from Instrucciones.Break import Break
 from TS.Excepcion         import Excepcion
 from TS.Tipo              import TIPO
@@ -73,6 +74,14 @@ class For(Instruccion):
                 tree.getExcepciones().append(value)
                 tree.updateConsola(value.toString())
 
+
+    def getNodo(self):
+        nodo = NodoAST("FOR")
+        instrucciones = NodoAST("INSTRUCCIONES")
+        for instr in self.instrucciones:
+            instrucciones.agregarHijoNodo(instr.getNodo())
+        nodo.agregarHijoNodo(instrucciones)
+        return nodo 
 
 """
     Creditos: 

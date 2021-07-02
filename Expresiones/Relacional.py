@@ -1,4 +1,5 @@
 from Abstract.Instruccion import Instruccion
+from Abstract.NodoAST import NodoAST
 from TS.Excepcion import Excepcion
 from TS.Tipo import TIPO, OperadorRelacional
 
@@ -172,9 +173,15 @@ class Relacional(Instruccion):
                 return bool(val)
             return str(val)
         else:
-            return None;
+            return None
 
+    def getNodo(self):
+        nodo = NodoAST("RELACIONAL")
+        nodo.agregarHijoNodo(self.OperacionIzq.getNodo())
+        nodo.agregarHijo(str(self.operador))
+        nodo.agregarHijoNodo(self.OperacionDer.getNodo())
 
+        return nodo
 """
     Creditos: 
         Jose Francisco Puac - Repositorio del Curso

@@ -1,6 +1,6 @@
 from TS.Excepcion import Excepcion
 from Abstract.Instruccion import Instruccion
-
+from Abstract.NodoAST import NodoAST
 
 class Identificador(Instruccion):
     def __init__(self, identificador, fila, columna):
@@ -19,6 +19,10 @@ class Identificador(Instruccion):
 
         return simbolo.getValor() 
 
+    def getNodo(self):
+        nodo = NodoAST("IDENTIFICADOR")
+        nodo.agregarHijo(str(self.identificador))
+        return nodo  
 
 """
     Creditos: 

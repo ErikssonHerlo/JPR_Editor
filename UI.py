@@ -10,9 +10,10 @@ from tkinter import scrolledtext
 from tkinter import ttk
 from grammar import interfaz as compilar
 from grammar import getVariables as listaVariables
+from grammar import getFunciones as listaFunciones
 
 # ******************************************* METODOS ********************************************
-# Actualizar lineas
+# Actualizar lineasd
 def lineas(*args):
     lineasEditor.delete("all")
 
@@ -230,10 +231,17 @@ def compilarArchivo(e = None):
     resaltarPalabras()
     tablaSimbolosUI.delete(*tablaSimbolosUI.get_children())
     variables = listaVariables()
+    funciones = listaFunciones()
     contadorVar = 1
     for variable in variables:
         tablaSimbolosUI.insert(parent='', index=contadorVar, iid=contadorVar, text='', values=(contadorVar,variable.getID(),"Variable",variable.getTipo(),"Global",variable.getValor(),variable.getFila(),variable.getColumna()))
         contadorVar+=1    
+    for funcion in funciones:
+        if funcion.getNombre()=="round" or funcion.getNombre()=="toupper" or funcion.getNombre()=="tolower" or funcion.getNombre()=="length" or funcion.getNombre()=="truncate" or funcion.getNombre()=="typeof":
+            continue
+        else:
+            tablaSimbolosUI.insert(parent='', index=contadorVar, iid=contadorVar, text='', values=(contadorVar,funcion.getNombre(),"Funcion",funcion.getTipo(),"-","-",funcion.getFila(),funcion.getColumna()))
+            contadorVar+=1
 
 def abrirReporteArbolSintactico():
     if(platform.system() == "Linux"):

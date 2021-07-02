@@ -1,0 +1,118 @@
+var decimal1 = (int)10.50;
+var decimal2 = (String)11.40;
+
+var entero1 = (double)12;
+var entero2 = (string)13;
+var entero3 = (char)43;
+
+var caracter1 = (int)'a';
+var caracter2 = (double)'b';
+
+var cadena1 = (int)"Hola";
+var cadena2 = (double)"Hola";
+var cadena3 = (boolean)"fALSE";
+
+main(){
+print("Decimal a Entero");
+print(decimal1);
+print(typeof(decimal1));
+print("\nDecimal a Cadena");
+print(decimal2);
+print(typeof(decimal2));
+
+print("\nEntero a Decimal");
+print(entero1);
+print(typeof(entero1));
+print(round(entero1));
+
+print("\nEntero a String");
+print(entero2);
+print(typeof(entero2));
+print(length(entero2));
+
+print("\nEntero a Char");
+print(entero3);
+print(typeof(entero3));
+
+print("\nChar a Entero");
+print(caracter1);
+print(typeof(caracter1));
+
+print("\nChar a Double");
+print(caracter2);
+print(typeof(caracter2));
+print(round(caracter2));
+
+print("\nCadena a Entero");
+print(cadena1);
+print(typeof(cadena1));
+
+print("\nCadena a Double");
+print(cadena2);
+print(typeof(cadena2));
+
+print("\nCadena a Boolean");
+print(cadena3);
+print(typeof(cadena3));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -40,7 +40,7 @@ class Switch(Instruccion):
         nodo = NodoAST("SWITCH")
 
         instrucciones = NodoAST("CASES")
-        for instr in self.cases:
+        for instr in self.listaCase:
             instrucciones.agregarHijoNodo(instr.getNodo())
         nodo.agregarHijoNodo(instrucciones)
         return nodo    

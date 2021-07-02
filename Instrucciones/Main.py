@@ -3,6 +3,7 @@ from Abstract.NodoAST import NodoAST
 from TS.Excepcion import Excepcion
 from TS.TablaSimbolos import TablaSimbolos
 from Instrucciones.Break import Break
+from Instrucciones.Continue import Continue
 
 
 class Main(Instruccion):
@@ -22,6 +23,11 @@ class Main(Instruccion):
                 err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
                 tree.getExcepciones().append(err)
                 tree.updateConsola(err.toString()) 
+            if isinstance(value, Continue): 
+                err = Excepcion("Semantico", "Sentencia CONTINUE fuera de ciclo", instruccion.fila, instruccion.columna)
+                tree.getExcepciones().append(err)
+                tree.updateConsola(err.toString())
+
 
     def getNodo(self):
         nodo = NodoAST("MAIN")

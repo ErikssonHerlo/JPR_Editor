@@ -7,6 +7,7 @@ from TS.Arbol import Arbol
 
 errores = []
 variables = []
+funciones = []
 reservadas = {
     'int'       : 'RINT',
     'double'    : 'RDOUBLE',
@@ -28,12 +29,6 @@ reservadas = {
     'return'    : 'RRETURN',
     'func'      : 'RFUNC',
     'read'      : 'RREAD',
-    'toLower'   : 'RTOLOWER',
-    'toUpper'   : 'RTOUPPER',
-    'length'    : 'RLENGTH',
-    'truncate'  : 'RTRUNCATE',
-    'round'     : 'RROUND',
-    'typeof'    : 'RTYPEOF',
     'main'      : 'RMAIN',
 }
 
@@ -231,8 +226,13 @@ from Instrucciones.For import For
 from Instrucciones.Switch import Switch
 from Instrucciones.Case import Case
 from Instrucciones.Return import Return
+from Instrucciones.Continue import Continue
 from Nativas.ToLower import ToLower
 from Nativas.ToUpper import ToUpper
+from Nativas.Length import Length
+from Nativas.Round import Round
+from Nativas.Truncate import Truncate
+from Nativas.TypeOf import TypeOf
 from Expresiones.Read import Read
 from Expresiones.Casteo import Casteo
 
@@ -267,6 +267,7 @@ def p_instruccion(t) :
                         | switch_instr
                         | while_instr 
                         | break_instr finins
+                        | continue_instr finins
                         | for_instr 
                         | main_instr 
                         | funcion_instr 
@@ -399,6 +400,12 @@ def p_while(t) :
 def p_break(t) :
     'break_instr     : RBREAK'
     t[0] = Break(t.lineno(1), find_column(input, t.slice[1]))
+
+
+#///////////////////////////////////////CONTINUE//////////////////////////////////////////////////
+def p_continue(t) :
+    'continue_instr     : RCONTINUE'
+    t[0] = Continue(t.lineno(1), find_column(input, t.slice[1]))
 
 #///////////////////////////////////////MAIN//////////////////////////////////////////////////
 
@@ -612,6 +619,9 @@ def getErrores():
 def getVariables():
     return variables
 
+def getFunciones():
+    return funciones
+
 def parse(inp) :
     global errores
     global variables
@@ -619,6 +629,7 @@ def parse(inp) :
     global parser
     errores = []
     variables = []
+    funciones = []
     lexer = lex.lex(reflags= re.IGNORECASE)
     parser = yacc.yacc()
     global input
@@ -639,6 +650,29 @@ def crearNativas(ast):          # CREACION Y DECLARACION DE LAS FUNCIONES NATIVA
     toLower = ToLower(nombre, parametros, instrucciones, -1, -1)
     ast.addFuncion(toLower)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
 
+    nombre = "length"
+    parametros = [{'tipo':TIPO.CADENA,'identificador':'length##Param1'}]
+    instrucciones = []
+    length = Length(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(length)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+        
+    nombre = "truncate"
+    parametros = [{'tipo':TIPO.DECIMAL,'identificador':'truncate##Param1'}]
+    instrucciones = []
+    truncate = Truncate(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(truncate)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+    
+    nombre = "round"
+    parametros = [{'tipo':TIPO.DECIMAL,'identificador':'round##Param1'}]
+    instrucciones = []
+    roundNumber = Round(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(roundNumber)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+    
+    nombre = "typeof"
+    parametros = [{'tipo':TIPO.CADENA,'identificador':'typeof##Param1'}]
+    instrucciones = []
+    typeof = TypeOf(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(typeof)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
 
 
 
@@ -676,6 +710,10 @@ def interfaz(archivo, tablaErrores):
                     err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
                     ast.getExcepciones().append(err)
                     ast.updateConsola(err.toString())
+                if isinstance(value, Continue): 
+                    err = Excepcion("Semantico", "Sentencia CONTINUE fuera de ciclo", instruccion.fila, instruccion.columna)
+                    ast.getExcepciones().append(err)
+                    ast.updateConsola(err.toString())
 
         contador = 0
         for instruccion in ast.getInstrucciones():      # 2DA PASADA (MAIN)
@@ -693,6 +731,10 @@ def interfaz(archivo, tablaErrores):
                     errores.append(err.toString())
                 if isinstance(value, Break): 
                     err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
+                    ast.getExcepciones().append(err)
+                    ast.updateConsola(err.toString())
+                if isinstance(value, Continue): 
+                    err = Excepcion("Semantico", "Sentencia CONTINUE fuera de ciclo", instruccion.fila, instruccion.columna)
                     ast.getExcepciones().append(err)
                     ast.updateConsola(err.toString())
                 if isinstance(value, Return): 
@@ -723,7 +765,9 @@ def interfaz(archivo, tablaErrores):
         variables.append(variable)
         print(variable.getID())
 
-    
+    for funcion in ast.getFunciones():
+        funciones.append(funcion)
+
     ast.imprimirErrores(tablaErrores)
     return ast.getConsola()
 

@@ -1,3 +1,4 @@
+from Instrucciones.Continue import Continue
 from Instrucciones.Return import Return
 from Abstract.Instruccion import Instruccion
 from Abstract.NodoAST import NodoAST
@@ -40,11 +41,13 @@ class If(Instruccion):
                             tree.updateConsola(result.toString()) 
                         if isinstance(result, Break): return result
                         if isinstance(result, Return): return result
+                        if isinstance(result,Continue): return result
                 elif self.elseIf != None:
                     result = self.elseIf.interpretar(tree, table)
                     if isinstance(result, Excepcion): return result
                     if isinstance(result, Break): return result
                     if isinstance(result, Return): return result
+                    if isinstance(result, Continue): return result
 
         else:
             return Excepcion("Semantico", "Tipo de dato no booleano en Condicional (If).", self.fila, self.columna)

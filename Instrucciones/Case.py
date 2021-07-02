@@ -1,6 +1,8 @@
 from Abstract.Instruccion import Instruccion
 from Abstract.NodoAST import NodoAST
 from Instrucciones.Break import Break
+from Instrucciones.Return import Return
+from Instrucciones.Continue import Continue
 from TS.Excepcion         import Excepcion
 from TS.TablaSimbolos     import TablaSimbolos
 
@@ -13,7 +15,15 @@ class Case(Instruccion):
 
     def interpretar(self, tree, table):
         condicion = self.condicion.interpretar(tree,table)
-        if isinstance(condicion,Excepcion): return condicion
+        if isinstance(condicion,Excepcion): 
+            tree.getExcepciones().append(condicion)
+            tree.updateConsola(condicion.toString())
+            return condicion
+        
+        if isinstance(condicion, Break): return True
+        if isinstance(condicion, Return): return condicion
+        if isinstance(condicion, Continue): return condicion
+
 
     def getInstrucciones(self):
         return self.instrucciones

@@ -147,7 +147,7 @@ def recorrerInput(i):
                 lista.append(l)
             counter +=1
     for s in lista:
-        if s[1] == 'var' or s[1] == 'func' or s[1] == 'read' or s[1] == 'tolower' or s[1] == 'toupper' or s[1] == 'lenght' or s[1] == 'truncate' or s[1] == 'round' or s[1] == 'typeof' or s[1] == 'return' or s[1] == 'break' or s[1] == 'switch' or s[1] == 'case' or s[1] == 'default' or s[1] == 'false' or s[1] == 'true' or s[1] == 'while' or s[1] == 'for' or s[1] == 'continue' or  s[1] == 'else' or s[1] == 'if' or s[1] == 'null' or s[1] == 'boolean' or s[1] == 'string' or s[1] == 'int' or s[1] == 'double' or s[1] == 'char' or s[1] == 'print' or s[1] == 'main':
+        if s[1] == 'var' or s[1] == 'func' or s[1] == 'read' or s[1] == 'tolower' or s[1] == 'toupper' or s[1] == 'lenght' or s[1] == 'truncate' or s[1] == 'round' or s[1] == 'typeof' or s[1] == 'return' or s[1] == 'break' or s[1] == 'switch' or s[1] == 'case' or s[1] == 'default' or s[1] == 'false' or s[1] == 'true' or s[1] == 'while' or s[1] == 'for' or s[1] == 'continue' or  s[1] == 'else' or s[1] == 'if' or s[1] == 'null' or s[1] == 'boolean' or s[1] == 'string'  or s[1] == 'int' or s[1] == 'double' or s[1] == 'char' or s[1] == 'print' or s[1] == 'main':
             s[0] = 'reservada'
         elif re.search(r'\d+',s[1]) or re.search(r'\d+\.\d+',s[1]):
             if re.search(r'\"(\\\'|\\"|\\\\|\\n|\\t|[^\'\\\"])*?\"',s[1]):
@@ -255,13 +255,13 @@ def abrirReporteArbolSintactico():
 root = Tk()
 root.title("JPR Editor")
 # Frame principal
-frame = Frame(root, bg="#331e91")
+frame = Frame(root, bg="black") #331e91 color morado de fondo
 frame.grid(sticky='news')
 # Canvas
-canvas = Canvas(frame, bg="#331e91")
+canvas = Canvas(frame, bg="black")
 canvas.grid(row=0, column=1)
 # Frame del canvas
-frameEditors = Frame(canvas, bg="#331e91")
+frameEditors = Frame(canvas, bg="black")
 canvas.create_window((0, 0), window=frameEditors, anchor="nw")
 #canvas.columnconfigure()
 canvas.configure(width=1450, height=750)
@@ -290,15 +290,15 @@ root.config(menu=menu)
 tituloPrincipal = Label(frameEditors,text="JPR Interprete",font="Helvetica 18",fg="black")
 tituloPrincipal.grid(row=0,column=0,sticky="e",pady=10)
 #tituloPrincipal.place(x=605, y = 8015, width=, height=64)
-tituloEditor = Label(frameEditors,text="Editor",font="Helvetica 18",fg="black")
+tituloEditor = Label(frameEditors,text="Editor",font="Helvetica 18",fg="#0d51cf")
 tituloEditor.grid(row=1,column=0,sticky="ew",pady=10)
-tituloConsola = Label(frameEditors,text="Consola",font="Helvetica 18",fg="black")
+tituloConsola = Label(frameEditors,text="Consola",font="Helvetica 18",fg="#0d51cf")
 tituloConsola.grid(row=1,column=1,sticky="ew",pady=10)
 #Label Tabla de Simbolos
-simbolosLbl = Label(frameEditors,text="Tabla de Simbolos",font="Helvetica 18",fg="black")
+simbolosLbl = Label(frameEditors,text="Tabla de Simbolos",font="Helvetica 18",fg="#0d51cf")
 simbolosLbl.grid(row=5,column=0,sticky="ew",pady=30)
 #Label Tabla de Errores
-erroresLbl = Label(frameEditors,text="Tabla de Errores",font="Helvetica 18",fg="black")
+erroresLbl = Label(frameEditors,text="Tabla de Errores",font="Helvetica 18",fg="#0d51cf")
 erroresLbl.grid(row=5,column=1, sticky="ew")
 #Boton de compilacion
 #compilarButton= Button(frameEditors,text="Compilar",width=10,command=compilarArchivo)
@@ -324,7 +324,7 @@ entradaTexto.grid(column=0, row=2, pady=30, padx=60)
 consolaTexto = scrolledtext.ScrolledText(frameEditors, undo=True, width=75, height=17,bg="black",foreground="white")
 consolaTexto.grid(column=1, row=2, pady=30, padx=50)
 # Canvas de fila del editor
-lineasEditor = Canvas(frameEditors, width=30, height=293, background='#8076ee') #gray60 #7366ff
+lineasEditor = Canvas(frameEditors, width=30, height=293, background='#386dff') #gray60 #7366ff #8076ee - COLOR MORADO FONDO
 lineasEditor.grid(column=0, row=2,padx=25,sticky="w")
 
 

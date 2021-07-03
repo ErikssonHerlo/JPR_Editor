@@ -1,10 +1,11 @@
 import re
+import sys
 from typing import Text
 from TS.Excepcion import Excepcion
 from TS.TablaSimbolos import TablaSimbolos
 from TS.Arbol import Arbol
 
-
+sys.setrecursionlimit(3000)
 errores = []
 variables = []
 funciones = []
@@ -625,6 +626,7 @@ def getFunciones():
 def parse(inp) :
     global errores
     global variables
+    global funciones
     global lexer
     global parser
     errores = []

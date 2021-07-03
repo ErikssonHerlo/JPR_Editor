@@ -9,9 +9,11 @@ class Read(Instruccion):
         self.tipo = TIPO.CADENA
 
     def interpretar(self, tree, table):
+        
         print(tree.getConsola()) #IMPRIME LA CONSOLA
         print("Ingreso a un READ. Ingrese el valor")
-        tree.setConsola("")     #RESETEA LA CONSOLA
+        tree.updateConsola(tree.getConsola())
+        #tree.setConsola("")     #RESETEA LA CONSOLA
         # ESTO SOLO ES DE EJEMPLO
         lectura = input() # OBTENERME EL VALOR INGRESADO
         return lectura

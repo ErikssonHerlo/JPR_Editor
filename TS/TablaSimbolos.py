@@ -6,6 +6,7 @@ class TablaSimbolos:
     def __init__(self, anterior = None):
         self.tabla = {} # Diccionario Vacio
         self.anterior = anterior
+        self.ambito = "Global"
 
     def setTabla(self, simbolo):      # Agregar una variable a un ambito
         if simbolo.id.lower() in self.tabla :
@@ -73,6 +74,12 @@ class TablaSimbolos:
         global variables
         variables=[]
 
+    def setAmbito(self,ambito):
+        self.ambito = ambito
+
+    def getAmbito(self):
+        return self.ambito
+
 
 """
     Creditos: 
@@ -80,3 +87,13 @@ class TablaSimbolos:
         Se utilizo como una base para el proyecto
         Eriksson Hernández - Desarollador
 """
+
+'''
+    var i = 1;
+    for
+    i++ {
+        for variable in variables 
+    }
+
+'''
+# i++

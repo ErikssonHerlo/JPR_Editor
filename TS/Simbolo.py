@@ -2,6 +2,7 @@
 class Simbolo:
     def __init__(self, identificador, tipo, fila, columna, valor ):
         self.id = identificador
+        self.ambito = None
         self.tipo = tipo
         self.fila = fila
         self.columna = columna
@@ -30,6 +31,12 @@ class Simbolo:
     
     def getColumna(self):
         return self.columna
+
+    def setAmbito(self, ambito):
+        self.ambito
+    
+    def getAmbito(self):
+        return self.ambito
 
 """
     Creditos: 

@@ -8,8 +8,8 @@ var entero3 = (char)43;
 var caracter1 = (int)'a';
 var caracter2 = (double)'b';
 
-var cadena1 = (int)"Hola";
-var cadena2 = (double)"Hola";
+var cadena1 = (int)"1";
+var cadena2 = (double)"1";
 var cadena3 = (boolean)"fALSE";
 
 main(){
@@ -55,6 +55,9 @@ print("\nCadena a Boolean");
 print(cadena3);
 print(typeof(cadena3));
 }
+
+
+
 
 
 

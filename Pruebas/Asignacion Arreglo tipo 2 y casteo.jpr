@@ -1,0 +1,29 @@
+main(){
+
+
+	int[] arr1 = {1, 2, 3, 4}
+
+	boolean[] arr2 = {true, false, true, false}
+	char[] arr3 = {'1', '2', '3'}
+	int[] arr4 = new int[4];
+	arr2 = arr1;
+	arr4 = (int) arr3;
+	print(arr2[2]);	
+
+	print(arr3[2]);
+	
+	arr1[2] = 1;
+
+	print(arr3[arr1[2]]);
+
+	print(arr2[2]);
+	print(arr1[2]);
+
+
+}     
+            
+
+
+
+
+

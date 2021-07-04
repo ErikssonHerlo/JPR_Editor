@@ -1,0 +1,62 @@
+main(){
+print("\n Ejemplo de declaracion tipo 1");
+
+int[] arr1 = new int[4]; 
+arr1[0] = 1
+print("\n se crea un arreglo de 4 posiciones, con null en cada posicion");
+print("arr1[0]: "+arr1[0]);
+
+int[][] matriz1 = new int[2][2]; 
+matriz1[0][1] = 25
+print("\n se crea un arreglo de 4 posiciones, con null en cada posicion");
+
+int[][] matriz2 = matriz1; 
+print("\n  la referencia de matriz1 está en matriz2");
+print("matriz1[0][1]: "+ matriz1[0][1]);
+print("matriz2[0][1]: "+ matriz2[0][1]);
+print("matriz1[1][1]: ");
+print(matriz1[1][1]);
+print("matriz2[1][1]: "); 
+print(matriz2[1][1]);
+
+print("\n Ejemplo de declaracion tipo 2");
+string[] arreglo2 = {"hola", "Mundo"}; 
+print("\n arreglo de 2 posiciones, con Hola y Mundo");
+print("arreglo2[0]: "); 
+print( arreglo2[0]);
+print("arreglo2[1]: "); 
+print( arreglo2[1]);
+int[][] matriz = { {11, 12} , {21,22} }; 
+print("\n arreglo de 2 dimensiones, con 2 posiciones en cada dimension");
+print("matriz[0][0] :");
+print(matriz[0][0]);
+print("matriz[1][0] :");
+print(matriz[1][0]);
+
+char[][][] cubo = { { {'a', 'b'} , {'c','d'} } , { {'e', 'f'} , {'g','h'} } , { {'i', 'j'} , {'k','l'} } } 
+print("\n arreglo de 3 dimensiones de 2 dimensiones, con 2 posiciones en cada dimension. ([3][2][2])");
+print("cubo[0][0][0] :");
+print(cubo[0][0][0]);
+print("cubo[0][0][1] :"); 
+print(cubo[0][0][1]);
+print("cubo[0][0][2] :" ); 
+print( cubo[0][0][2]);
+print("cubo[0][0][3] :" ); 
+print( cubo[0][0][3]);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

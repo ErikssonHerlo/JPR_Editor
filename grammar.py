@@ -243,6 +243,7 @@ from Nativas.TypeOf import TypeOf
 from Expresiones.Read import Read
 from Expresiones.Casteo import Casteo
 from Instrucciones.DeclaracionArr1 import DeclaracionArr1
+from Instrucciones.DeclaracionArr2 import DeclaracionArr2
 from Expresiones.AccesoArreglo import AccesoArreglo
 from Instrucciones.ModificarArreglo import ModificarArreglo
 from Instrucciones.ReferenciaArreglo import ReferenciaArreglo
@@ -320,10 +321,11 @@ def p_declaracion_nula(t) :
 
 def p_declArr(t) :
     '''declArr_instr     : tipo1
+                         | tipo2
                          | arreglo_referencia'''
     t[0] = t[1]
 
-def p_tipo1(t) :
+def p_tipo1_arreglo(t) :
     '''tipo1     : tipo lista_Dim ID IGUAL RNEW tipo lista_expresiones'''
     t[0] = DeclaracionArr1(t[1], t[2], t[3], t[6], t[7], t.lineno(3), find_column(input, t.slice[3]))
 
@@ -362,6 +364,44 @@ def p_lista_expresiones_2(t) :
     'lista_expresiones    : CORA expresion CORC'
     t[0] = [t[2]]
 
+#///////////////////////////////////////DECLARACIO ARREGLOS TIPO 2//////////////////////////////////////////////////
+
+def p_tipo2_arreglo(t):
+    ' tipo2 : tipo lista_Dim ID IGUAL lst_values '
+    t[0] = DeclaracionArr2(t[1],t[2],t[3],t[5],t.lineno(4), find_column(input, t.slice[4]))
+
+def p_lst_values(t) :
+    ' lst_values    :  lst_values COMA LLAVEA value LLAVEC '
+    if t[4] != "":
+        t[1].append(t[4])
+    t[0] = t[1]
+
+def p_lst_value(t) :
+    ' lst_values    : LLAVEA value LLAVEC '
+    if t[2] == "":
+        t[0] = []
+    else:
+        t[0] = [t[2]]
+
+def p_value(t):
+    '''
+    value :  lst_values
+            | lst_expresion
+    '''
+    t[0] = t[1]
+
+def p_lst_values_expresio(t) :
+    ' lst_expresion    : lst_expresion COMA expresion '
+    if t[3] != "":
+        t[1].append(t[3])
+    t[0] = t[1]
+
+def p_lst_value_expresion_final(t) :
+    ' lst_expresion    : expresion '
+    if t[1] == "":
+        t[0] = []
+    else:
+        t[0] = [t[1]]
 #///////////////////////////////////////MODIFICACION ARREGLOS//////////////////////////////////////////////////
 
 def p_modArr(t) :
@@ -683,6 +723,9 @@ def p_expresion_arreglo(t):
     '''expresion : ID lista_expresiones'''
     t[0] = AccesoArreglo(t[1], t[2], t.lineno(1), find_column(input, t.slice[1]))
 
+# def p_expresion_arreglo2(t):
+#     '''expresion : ARREGLO'''
+#     t[0] = Primitivos(TIPO.ARREGLO,str(t[1]), t.lineno(1), find_column(input, t.slice[1]))
 
 import ply.yacc as yacc
 parser = yacc.yacc()
@@ -774,12 +817,11 @@ def interfaz(archivo, tablaErrores, consolaTexto):
     for error in errores:                   #CAPTURA DE ERRORES LEXICOS Y SINTACTICOS
         ast.getExcepciones().append(error)
         ast.updateConsola(error.toString())
-    #tablaErrores['columns']=('#', 'Tipo', 'Descripcion', 'Linea', 'Columna')
     if ast.getInstrucciones()!=None:
         for instruccion in ast.getInstrucciones():      # 1ERA PASADA (DECLARACIONES Y ASIGNACIONES)
             if isinstance(instruccion, Funcion):
                 ast.addFuncion(instruccion)     
-            if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion,DeclaracionArr1) or isinstance(instruccion,ModificarArreglo):
+            if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion,DeclaracionArr1) or isinstance(instruccion,ModificarArreglo) or isinstance(instruccion, DeclaracionArr2) or isinstance(instruccion, ReferenciaArreglo):
                 value = instruccion.interpretar(ast,TSGlobal)
                 if isinstance(value, Excepcion) :
                     ast.getExcepciones().append(value)
@@ -820,7 +862,7 @@ def interfaz(archivo, tablaErrores, consolaTexto):
                     ast.getExcepciones().append(err)
                     ast.updateConsola(err.toString())
         for instruccion in ast.getInstrucciones():    # 3ERA PASADA (SENTENCIAS FUERA DE MAIN)
-            if not (isinstance(instruccion, Main) or isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, Funcion) or isinstance(instruccion, DeclaracionArr1) or isinstance(instruccion, ModificarArreglo)):
+            if not (isinstance(instruccion, Main) or isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, Funcion) or isinstance(instruccion, DeclaracionArr1) or isinstance(instruccion, ModificarArreglo) or isinstance(instrucciones, DeclaracionArr2) or isinstance(instruccion, ReferenciaArreglo)):
                 err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
                 ast.getExcepciones().append(err)
                 ast.updateConsola(err.toString())

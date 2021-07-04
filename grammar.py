@@ -491,6 +491,7 @@ def p_tipo(t) :
         t[0] = TIPO.CADENA
     elif t[1].lower() == 'boolean':
         t[0] = TIPO.BOOLEANO 
+
     elif t[1].lower() == 'var':
         t[0] = TIPO.VAR 
     elif t[1].lower() == 'char':
@@ -681,7 +682,7 @@ def crearNativas(ast):          # CREACION Y DECLARACION DE LAS FUNCIONES NATIVA
 
 #INTERFAZ
 
-def interfaz(archivo, tablaErrores):
+def interfaz(archivo, tablaErrores, consolaTexto):
     entrada = archivo
 
     from TS.Arbol import Arbol
@@ -691,6 +692,7 @@ def interfaz(archivo, tablaErrores):
     ast = Arbol(instrucciones)
     TSGlobal = TablaSimbolos()
     ast.setTSglobal(TSGlobal)
+    ast.setSalidaTexto(consolaTexto)
     crearNativas(ast)
     if len(TSGlobal.getVariables())!=0:
         TSGlobal.vaciarVariables()

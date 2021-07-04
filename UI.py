@@ -226,7 +226,7 @@ def guardarComo():      #GUARDAR COMO
 #Compilacion
 def compilarArchivo(e = None):
     consolaTexto.delete(1.0, END)
-    contenido = compilar(entradaTexto.get(1.0, END),tablaErrores)
+    contenido = compilar(entradaTexto.get(1.0, END),tablaErrores, consolaTexto)
     consolaTexto.insert(INSERT,contenido)
     resaltarPalabras()
     tablaSimbolosUI.delete(*tablaSimbolosUI.get_children())

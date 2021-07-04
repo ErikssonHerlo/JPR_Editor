@@ -6,7 +6,7 @@ class TablaSimbolos:
     def __init__(self, anterior = None):
         self.tabla = {} # Diccionario Vacio
         self.anterior = anterior
-        self.ambito = "Global"
+        
 
     def setTabla(self, simbolo):      # Agregar una variable a un ambito
         if simbolo.id.lower() in self.tabla :

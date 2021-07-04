@@ -7,6 +7,7 @@ class Arbol:
         self.funciones = []
         self.excepciones = []
         self.consola = ""
+        self.salidaTexto = None
         self.TSglobal = None
         self.dot = ""
         self.contador = 0
@@ -50,7 +51,12 @@ class Arbol:
     def addFuncion(self, funcion):
         self.funciones.append(funcion)
 
-    
+    def getSalidaTexto(self):
+        return self.salidaTexto
+
+    def setSalidaTexto(self, salidaTexto):
+        self.salidaTexto = salidaTexto
+
     def imprimirErrores(self, tablaErrores):
         for limpieza in tablaErrores.get_children():
             tablaErrores.delete(limpieza)

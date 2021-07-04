@@ -1,6 +1,7 @@
 from TS.Excepcion import Excepcion
 from TS.Tipo import TIPO
 from Instrucciones.Funcion import Funcion
+import math
 
 
 class Round(Funcion):
@@ -20,4 +21,7 @@ class Round(Funcion):
             return Excepcion("Semantico", "Tipo de parametro de Round no es un valor numerico.", self.fila, self.columna)
 
         self.tipo = TIPO.ENTERO
+
+        if(str(simbolo.getValor()).count('.')>0 and str(simbolo.getValor()).split('.')[1][0] >= '5'):
+            return math.ceil(simbolo.getValor())
         return int(round(simbolo.getValor()))

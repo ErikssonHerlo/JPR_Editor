@@ -87,13 +87,3 @@ class TablaSimbolos:
         Se utilizo como una base para el proyecto
         Eriksson Hernández - Desarollador
 """
-
-'''
-    var i = 1;
-    for
-    i++ {
-        for variable in variables 
-    }
-
-'''
-# i++

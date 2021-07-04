@@ -1,9 +1,16 @@
 main(){
 
 print("Hola");
+sin_espacio();
 }
-print("Linea 5");
-print("Linea 6");
-
+func sin_espacio(){
+    for(var ln = 0; ln < 8; ln++){
+        for(var coord = 0; coord < 3; coord++){
+            print("Linea: " + ln);
+            print("Coordenada: " + coord)
+        }
+    }
+    return True
+}
 
 

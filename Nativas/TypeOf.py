@@ -17,4 +17,14 @@ class TypeOf(Funcion):
         if simbolo == None : return Excepcion("Semantico", "No se encontró el parámetro de type of", self.fila, self.columna)
 
         self.tipo = TIPO.CADENA
-        return str(simbolo.getTipo()).replace("TIPO.","")
+        if simbolo.getArreglo():
+            return "ARREGLO->"+str(simbolo.getTipo()).replace("TIPO.","")
+        else:
+            return str(simbolo.getTipo()).replace("TIPO.","") 
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

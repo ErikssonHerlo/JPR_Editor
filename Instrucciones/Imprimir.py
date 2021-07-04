@@ -15,7 +15,7 @@ class Imprimir(Instruccion):
         if isinstance(value, Excepcion) :
             return value
 
-        if self.expresion.tipo == TIPO.ARREGLO:
+        if isinstance(value,list):
             return Excepcion("Semantico", "No se puede imprimir un arreglo completo", self.fila, self.columna)
         
         tree.updateConsola(value)

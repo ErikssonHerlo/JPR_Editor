@@ -21,3 +21,10 @@ class Truncate(Funcion):
 
         self.tipo = TIPO.ENTERO
         return int(simbolo.getValor())
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

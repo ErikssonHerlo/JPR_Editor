@@ -147,8 +147,11 @@ def recorrerInput(i):
                 lista.append(l)
             counter +=1
     for s in lista:
-        if s[1] == 'var' or s[1] == 'func' or s[1] == 'read' or s[1] == 'tolower' or s[1] == 'toupper' or s[1] == 'lenght' or s[1] == 'truncate' or s[1] == 'round' or s[1] == 'typeof' or s[1] == 'return' or s[1] == 'break' or s[1] == 'switch' or s[1] == 'case' or s[1] == 'default' or s[1] == 'false' or s[1] == 'true' or s[1] == 'while' or s[1] == 'for' or s[1] == 'continue' or  s[1] == 'else' or s[1] == 'if' or s[1] == 'null' or s[1] == 'boolean' or s[1] == 'string'  or s[1] == 'int' or s[1] == 'double' or s[1] == 'char' or s[1] == 'print' or s[1] == 'main':
+        if s[1] == 'var' or s[1] == 'func' or s[1] == 'read' or s[1] == 'tolower' or s[1] == 'toupper' or s[1] == 'length' or s[1] == 'truncate' or s[1] == 'round' or s[1] == 'typeof' or s[1] == 'return' or s[1] == 'break' or s[1] == 'switch' or s[1] == 'case' or s[1] == 'default' or s[1] == 'false' or s[1] == 'true' or s[1] == 'while' or s[1] == 'for' or s[1] == 'continue' or  s[1] == 'else' or s[1] == 'if' or s[1] == 'null' or s[1] == 'boolean' or s[1] == 'string'  or s[1] == 'int' or s[1] == 'double' or s[1] == 'char' or s[1] == 'print' or s[1] == 'main' or s[1] == 'new':
             s[0] = 'reservada'
+        elif s[1] == 'Var' or s[1] == 'Func' or s[1] == 'Read' or s[1] == 'ToLower' or s[1] == 'ToUpper' or s[1] == 'toLower' or s[1] == 'toUpper' or s[1] == 'Length' or s[1] == 'Truncate' or s[1] == 'Round' or s[1] == 'TypeOf' or s[1] == 'Return' or s[1] == 'Break' or s[1] == 'Switch' or s[1] == 'Case' or s[1] == 'Default' or s[1] == 'False' or s[1] == 'True' or s[1] == 'While' or s[1] == 'For' or s[1] == 'Continue' or  s[1] == 'Else' or s[1] == 'If' or s[1] == 'Null' or s[1] == 'Boolean' or s[1] == 'String'  or s[1] == 'Int' or s[1] == 'Double' or s[1] == 'Char' or s[1] == 'Print' or s[1] == 'Main' or s[1] == 'New':
+            s[0] = 'reservada'
+        
         elif re.search(r'\d+',s[1]) or re.search(r'\d+\.\d+',s[1]):
             if re.search(r'\"(\\\'|\\"|\\\\|\\n|\\t|[^\'\\\"])*?\"',s[1]):
                 s[0] = 'cadena'

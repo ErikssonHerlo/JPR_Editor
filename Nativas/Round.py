@@ -25,3 +25,10 @@ class Round(Funcion):
         if(str(simbolo.getValor()).count('.')>0 and str(simbolo.getValor()).split('.')[1][0] >= '5'):
             return math.ceil(simbolo.getValor())
         return int(round(simbolo.getValor()))
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

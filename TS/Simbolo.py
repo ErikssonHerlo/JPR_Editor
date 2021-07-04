@@ -1,12 +1,14 @@
 
 class Simbolo:
-    def __init__(self, identificador, tipo, fila, columna, valor ):
+    def __init__(self, identificador, tipo, arreglo,fila, columna, valor ):
         self.id = identificador
         self.ambito = None
         self.tipo = tipo
         self.fila = fila
         self.columna = columna
         self.valor = valor
+        self.arreglo = arreglo
+        self.dimensionesArreglo = None
 
     def getID(self):
         return self.id
@@ -33,10 +35,19 @@ class Simbolo:
         return self.columna
 
     def setAmbito(self, ambito):
-        self.ambito
+        self.ambito = ambito
     
     def getAmbito(self):
-        return self.ambito
+        return self.ambito 
+
+    def getArreglo(self):
+        return self.arreglo
+
+    def setDimensionesArreglo(self, dimensionesArreglo):
+        self.dimensionesArreglo = dimensionesArreglo
+    
+    def getDimensionesArreglo(self):
+        return self.dimensionesArreglo
 
 """
     Creditos: 

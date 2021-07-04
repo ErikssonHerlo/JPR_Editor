@@ -18,6 +18,8 @@ class Read(Instruccion):
         
         entradaRead = simpledialog.askstring("Entrada de Texto","Ingrese un valor")
 
+
+
         tree.getSalidaTexto().delete('1.0', 'end')
         tree.updateConsola('Entrada: ' + entradaRead)
         return entradaRead
@@ -25,3 +27,10 @@ class Read(Instruccion):
     def getNodo(self):
         nodo = NodoAST("READ")
         return nodo 
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

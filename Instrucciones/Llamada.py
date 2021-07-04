@@ -1,10 +1,12 @@
+from Expresiones.Identificador import Identificador
 from Abstract.Instruccion import Instruccion
 from Abstract.NodoAST import NodoAST
 from TS.Excepcion import Excepcion
 from TS.TablaSimbolos import TablaSimbolos
 from TS.Simbolo import Simbolo
 from Instrucciones.Break import Break
-
+from TS.Tipo import TIPO
+import copy
 
 class Llamada(Instruccion):
     def __init__(self, nombre, parametros, fila, columna):
@@ -12,6 +14,7 @@ class Llamada(Instruccion):
         self.parametros = parametros
         self.fila = fila
         self.columna = columna
+        self.arreglo = False
 
     def interpretar(self, tree, table):
         result = tree.getFuncion(self.nombre.lower()) ## OBTENER LA FUNCION
@@ -31,10 +34,40 @@ class Llamada(Instruccion):
                     result.parametros[contador]['tipo']=expresion.tipo
                 if result.parametros[contador]['identificador']=='typeof##Param1':
                     result.parametros[contador]['tipo']=expresion.tipo
+                
+                #simboloEncontrado = table.getTabla(expresion.identificador)
+                #simboloEncontrado = table.getTabla(result.parametros[contador]['identificador'])
+                
+                try:
+                    simboloEncontrado = table.getTabla(expresion.identificador)
+                    if(simboloEncontrado.getArreglo() and (result.parametros[contador]['identificador']=='Length##Param1' or result.parametros[contador]['identificador']=='Typeof##Param1')):
+                        result.parametros[contador]['tipo'] = expresion.tipo
+                        self.arreglo=True
+                except:
+                    pass
 
-                if result.parametros[contador]["tipo"] == expresion.tipo:  # VERIFICACION DE TIPO
+                if result.parametros[contador]["tipo"] == expresion.tipo or result.parametros[contador]['tipo'] == TIPO.ARREGLO: # VERIFICACION DE TIPO
+                #     if(simboloEncontrado == None):
+                #         return Excepcion("Semantico", "Parametro Arreglo No encontrado.", self.fila, self.columna)
+
+                #     if(simboloEncontrado.arreglo) :
+                #         if(simboloEncontrado.getTipo() != result.parametros[contador]['tipo']):
+                #             return Excepcion("Semantico", "Parametro Arreglo no tiene el mismo tipo.", self.fila, self.columna)
+
+                #         if(simboloEncontrado.getDimensionesArreglo() != result.parametros[contador]['longitud']):
+                #             return Excepcion("Semantico", "Parametro Arreglo no tiene las mismas dimensiones.", self.fila, self.columna)
+                #         resultExpresion = copy.copy(resultExpresion)
+                #         self.arreglo = True    
+                            
+                   
+                                    
                     # CREACION DE SIMBOLO E INGRESARLO A LA TABLA DE SIMBOLOS
-                    simbolo = Simbolo(str(result.parametros[contador]['identificador']).lower(), result.parametros[contador]['tipo'], self.fila, self.columna, resultExpresion)
+                    if result.parametros[contador]["tipo"]==TIPO.ARREGLO:
+                        resultExpresion = copy.copy(resultExpresion)
+                        self.arreglo = True
+                        simbolo = Simbolo(str(result.parametros[contador]['identificador']).lower(), expresion.tipo, self.arreglo, self.fila, self.columna, resultExpresion)
+                    else:
+                        simbolo = Simbolo(str(result.parametros[contador]['identificador']).lower(), result.parametros[contador]['tipo'], self.arreglo ,self.fila, self.columna, resultExpresion)
                     resultTabla = nuevaTabla.setTabla(simbolo)
                     if isinstance(resultTabla, Excepcion): return resultTabla
 
@@ -68,3 +101,4 @@ class Llamada(Instruccion):
         Se utilizo como una base para el proyecto
         Eriksson Hernández - Desarollador
 """
+

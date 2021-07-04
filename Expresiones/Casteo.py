@@ -78,3 +78,10 @@ class Casteo(Instruccion):
         elif tipo == TIPO.CARACTER:
             return ord(val)
         return str(val) 
+
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

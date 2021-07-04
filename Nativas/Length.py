@@ -16,8 +16,27 @@ class Length(Funcion):
         simbolo = table.getTabla("length##Param1")
         if simbolo == None : return Excepcion("Semantico", "No se encontró el parámetro de Length", self.fila, self.columna)
 
-        if simbolo.getTipo() != TIPO.CADENA:
-            return Excepcion("Semantico", "Tipo de parametro de Length no es cadena.", self.fila, self.columna)
+        if simbolo.getTipo() != TIPO.CADENA and not(simbolo.getArreglo()):
+            return Excepcion("Semantico", "Tipo de parametro de Length no es cadena, ni arreglo.", self.fila, self.columna)
 
         self.tipo = TIPO.ENTERO
-        return len(simbolo.getValor())
+
+        if(simbolo.getArreglo()):
+            expresiones = simbolo.getValor()
+            self.getLength(expresiones)
+            return self.length
+        else:
+            return len(simbolo.getValor())
+
+    def getLength(self, expresiones):
+        for expresion in expresiones:
+            if(isinstance(expresion,list)):
+                self.getLength(expresion)
+            else:
+                self.length += 1 
+"""
+    Creditos: 
+        Jose Francisco Puac - Repositorio del Curso
+        Se utilizo como una base para el proyecto
+        Eriksson Hernández - Desarollador
+"""

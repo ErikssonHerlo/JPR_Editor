@@ -31,6 +31,7 @@ class If(Instruccion):
                         tree.updateConsola(result.toString())
                     if isinstance(result, Break): return result
                     if isinstance(result, Return): return result
+                    if isinstance(result,Continue): return result
             else:               #ELSE
                 if self.instruccionesElse != None:
                     nuevaTabla = TablaSimbolos(table)       #NUEVO ENTORNO

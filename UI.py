@@ -159,6 +159,8 @@ def recorrerInput(i):
                 s[0] = 'comentario'
             elif re.search(r'[a-z|A-Z]',s[1]):
                 s[0]= "normal"
+            #elif re.search(r'[a-z|A-Z][_]*[0-9]*',s[1]):
+            #    s[0]= "variable"
             else:
                 s[0] = 'numero'
         elif re.search(r'\"(\\\'|\\"|\\\\|\\n|\\t|[^\'\\\"])*?\"',s[1]):

@@ -1,0 +1,19 @@
+func imprimirVector(int[] miVector){
+    for (var i = 0; i < length(miVector); i++) {
+        print("vectorNumeros[" + i + "] = " + miVector[i]);
+    }
+}
+
+main(){
+    int[] vectorNumeros = new int[2];
+    vectorNumeros[0] = 200;
+    vectorNumeros[1] = 26;
+  
+
+    print("============VECTOR DESORDENADO================");
+    imprimirVector(vectorNumeros);
+
+}
+
+
+

@@ -18,8 +18,6 @@ class Read(Instruccion):
         
         entradaRead = simpledialog.askstring("Entrada de Texto","Ingrese un valor")
 
-
-
         tree.getSalidaTexto().delete('1.0', 'end')
         tree.updateConsola('Entrada: ' + entradaRead)
         return entradaRead

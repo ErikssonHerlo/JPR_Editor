@@ -11,7 +11,7 @@ func ParamArray(int[] prueba){
 
 main(){
 	int[] numero = new int[3]
-	int[] num = numero
+
 	numero[0] = 1
 	numero[1] = 2
 	numero[2] = 3 
@@ -21,10 +21,7 @@ ParamArray(numero);
 	print(numero[0]);
 	print(numero[1]);
 	print(numero[2]);
-	print("\n Paso por Referencia a Num");
-	print(num[0]);
-	print(num[1]);
-	print(num[2]);
+
 	
 
     

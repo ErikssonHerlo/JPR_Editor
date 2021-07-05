@@ -34,43 +34,31 @@ class Llamada(Instruccion):
                     result.parametros[contador]['tipo']=expresion.tipo
                 if result.parametros[contador]['identificador']=='typeof##Param1':
                     result.parametros[contador]['tipo']=expresion.tipo
-                
+                if result.parametros[contador]['identificador']=='length##Param1':
+                    result.parametros[contador]['tipo']=expresion.tipo
                 #simboloEncontrado = table.getTabla(expresion.identificador)
                 #simboloEncontrado = table.getTabla(result.parametros[contador]['identificador'])
                 
                 try:
                     simboloEncontrado = table.getTabla(expresion.identificador)
-                    if(simboloEncontrado.getArreglo() and (result.parametros[contador]['identificador']=='Length##Param1' or result.parametros[contador]['identificador']=='Typeof##Param1')):
+                    if(simboloEncontrado.getArreglo() and (result.parametros[contador]['identificador']=='Length##Param1' or result.parametros[contador]['identificador']=='Typeof##Param1' or result.parametros[contador]['identificador']=='length##Param1' or result.parametros[contador]['identificador']=='typeof##Param1')):
                         result.parametros[contador]['tipo'] = expresion.tipo
                         self.arreglo=True
                 except:
                     pass
 
-                if result.parametros[contador]["tipo"] == expresion.tipo or result.parametros[contador]['tipo'] == TIPO.ARREGLO: # VERIFICACION DE TIPO
-                #     if(simboloEncontrado == None):
-                #         return Excepcion("Semantico", "Parametro Arreglo No encontrado.", self.fila, self.columna)
-
-                #     if(simboloEncontrado.arreglo) :
-                #         if(simboloEncontrado.getTipo() != result.parametros[contador]['tipo']):
-                #             return Excepcion("Semantico", "Parametro Arreglo no tiene el mismo tipo.", self.fila, self.columna)
-
-                #         if(simboloEncontrado.getDimensionesArreglo() != result.parametros[contador]['longitud']):
-                #             return Excepcion("Semantico", "Parametro Arreglo no tiene las mismas dimensiones.", self.fila, self.columna)
-                #         resultExpresion = copy.copy(resultExpresion)
-                #         self.arreglo = True    
-                            
-                   
-                                    
+                if result.parametros[contador]["tipo"] == expresion.tipo or result.parametros[contador]['tipo'] == TIPO.ARREGLO: # VERIFICACION DE TIPO       
                     # CREACION DE SIMBOLO E INGRESARLO A LA TABLA DE SIMBOLOS
                     if result.parametros[contador]["tipo"]==TIPO.ARREGLO:
-                        resultExpresion = copy.copy(resultExpresion)
+                        #resultExpresion = copy.copy(resultExpresion)
                         self.arreglo = True
                         simbolo = Simbolo(str(result.parametros[contador]['identificador']).lower(), expresion.tipo, self.arreglo, self.fila, self.columna, resultExpresion)
                     else:
                         simbolo = Simbolo(str(result.parametros[contador]['identificador']).lower(), result.parametros[contador]['tipo'], self.arreglo ,self.fila, self.columna, resultExpresion)
+                    
                     resultTabla = nuevaTabla.setTabla(simbolo)
+                    
                     if isinstance(resultTabla, Excepcion): return resultTabla
-
                 else:
                     return Excepcion("Semantico", "Tipo de dato diferente en Parametros de la llamada.", self.fila, self.columna)
                 contador += 1
@@ -102,3 +90,14 @@ class Llamada(Instruccion):
         Eriksson Hernández - Desarollador
 """
 
+                #     if(simboloEncontrado == None):
+                #         return Excepcion("Semantico", "Parametro Arreglo No encontrado.", self.fila, self.columna)
+
+                #     if(simboloEncontrado.arreglo) :
+                #         if(simboloEncontrado.getTipo() != result.parametros[contador]['tipo']):
+                #             return Excepcion("Semantico", "Parametro Arreglo no tiene el mismo tipo.", self.fila, self.columna)
+
+                #         if(simboloEncontrado.getDimensionesArreglo() != result.parametros[contador]['longitud']):
+                #             return Excepcion("Semantico", "Parametro Arreglo no tiene las mismas dimensiones.", self.fila, self.columna)
+                #         resultExpresion = copy.copy(resultExpresion)
+                #         self.arreglo = True    

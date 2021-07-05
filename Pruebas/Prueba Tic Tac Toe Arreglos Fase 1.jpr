@@ -343,7 +343,7 @@ func jugar(){
             }
 
         } else {
-            print(ENCABEZADO)
+            print(ENCABEZADO);
             print("Ingrese el nombre del Jugador 1")
             NOMBRE_J1 = read();
             print("Ingrese el nombre del Jugador 2")
